@@ -12,7 +12,7 @@ const data = [
   { name: 'Page G', uv: 189, pv: 4800, amt: 2400, uvError: [28, 40] },
   { name: 'Page H', uv: 189, pv: 4800, amt: 2400, uvError: 28 },
   { name: 'Page I', uv: 189, pv: 4800, amt: 2400, uvError: 28 },
-  { name: 'Page J', uv: 189, pv: 4800, amt: 2400, uvError: [15, 60] },
+  { name: 'Page J', uv: 189, pv: 4800, amt: 2400, uvError: [15, 60] }
 ];
 
 class App extends React.Component {
