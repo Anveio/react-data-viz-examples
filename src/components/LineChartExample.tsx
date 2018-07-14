@@ -1,4 +1,5 @@
 import { PRIMARY_SERIES_COLOR } from 'api/constants/colors';
+import { CHART_HEIGHT } from 'api/constants/misc';
 import { fetchLineGraphData } from 'api/realtime';
 import { LineGraphDataPoint } from 'api/sample-data';
 import * as React from 'react';
@@ -18,6 +19,7 @@ import {
 } from 'recharts';
 import { sleep } from 'utils/async';
 import { formatAsUsd } from 'utils/formatting';
+import LoadingSpinner from './LoadingSpinner';
 
 interface TooltipRendererProps<T> extends TooltipProps {
   active: boolean;
@@ -30,18 +32,12 @@ interface RendererPayload<T> extends TooltipPayload {
   payload: T;
 }
 
-interface Props {
-  readonly loadingDisplay: JSX.Element;
-}
-
 interface State {
   readonly data: LineGraphDataPoint[];
   readonly loading: boolean;
 }
 
-const CHART_HEIGHT = 400;
-
-class LineChartExample extends React.Component<Props, State> {
+class LineChartExample extends React.Component<{}, State> {
   public readonly state: State = {
     data: [],
     loading: true
@@ -73,17 +69,7 @@ class LineChartExample extends React.Component<Props, State> {
 
   public render() {
     return this.state.loading ? (
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          width: '100%',
-          height: CHART_HEIGHT
-        }}
-      >
-        {this.props.loadingDisplay}
-      </div>
+      <LoadingSpinner />
     ) : (
       <ResponsiveContainer width="100%" height={CHART_HEIGHT}>
         <LineChart

@@ -1,4 +1,4 @@
-import { AppProvider, Card, Layout, Page, Spinner } from '@shopify/polaris';
+import { AppProvider, Card, Layout, Page } from '@shopify/polaris';
 import * as React from 'react';
 import LineChartExample from './LineChartExample';
 
@@ -10,7 +10,7 @@ class App extends React.PureComponent {
           <Layout>
             <Layout.Section>
               <Card title="Stock performance">
-                <LineChartExample loadingDisplay={<Spinner />} />
+                <LineChartExample />
               </Card>
             </Layout.Section>
           </Layout>
