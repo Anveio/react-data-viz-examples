@@ -1,4 +1,9 @@
-export const lineGraphData = [
+export interface LineGraphDataPoint {
+  readonly date: string;
+  readonly price: number;
+}
+
+export const lineGraphData: LineGraphDataPoint[] = [
   { date: 'Jan 04 2016', price: 105.35 },
   { date: 'Jan 05 2016', price: 102.71 },
   { date: 'Jan 06 2016', price: 100.7 },
