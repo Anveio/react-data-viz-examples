@@ -344,32 +344,32 @@ export const lineGraphData: LineGraphDataPoint[] = [
 export const barChartData: BarChartDataPoint[] = [
   {
     name: 'food',
-    soldVolume: 2000,
-    totalInventory: 2013
+    soldVolume: 1500,
+    totalInventory: 2100
   },
   {
     name: 'cosmetic',
-    soldVolume: 3300,
-    totalInventory: 2000
+    soldVolume: 1900,
+    totalInventory: 2200
   },
   {
     name: 'storage',
-    soldVolume: 3200,
-    totalInventory: 1398
+    soldVolume: 2500,
+    totalInventory: 2600
   },
   {
     name: 'digital',
-    soldVolume: 2800,
-    totalInventory: 2800
+    soldVolume: 2200,
+    totalInventory: 3000
   },
   {
     name: 'clothing',
-    soldVolume: 2800,
-    totalInventory: 2800
+    soldVolume: 1400,
+    totalInventory: 2200
   },
   {
     name: 'toys',
-    soldVolume: 2800,
-    totalInventory: 2800
+    soldVolume: 1000,
+    totalInventory: 1400
   }
 ];

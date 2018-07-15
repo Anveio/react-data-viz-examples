@@ -13,7 +13,7 @@ class App extends React.PureComponent {
               <Card title="Stock performance">
                 <LineChartExample />
               </Card>
-              <Card title="Stock performance">
+              <Card title="Units sold">
                 <BarChartExample />
               </Card>
             </Layout.Section>
