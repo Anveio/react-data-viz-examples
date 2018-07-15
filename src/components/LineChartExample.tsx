@@ -1,12 +1,14 @@
-import { PRIMARY_SERIES_COLOR } from 'api/constants/colors';
-import { CHART_HEIGHT } from 'api/constants/misc';
+import { Card } from '@shopify/polaris';
 import { fetchLineGraphData } from 'api/realtime';
+import { PRIMARY_SERIES_COLOR, SECONDARY_SERIES_COLOR } from 'constants/colors';
+import { CHART_HEIGHT } from 'constants/misc';
 import * as React from 'react';
 import {
   Area,
   AreaChart,
   Brush,
   CartesianGrid,
+  Label,
   Line,
   LineChart,
   ResponsiveContainer,
@@ -19,17 +21,18 @@ import {
 import { LineGraphDataPoint } from 'types';
 import { sleep } from 'utils/async';
 import { formatAsUsd } from 'utils/formatting';
+// import { formatAsUsd } from 'utils/formatting';
 import LoadingSpinner from './LoadingSpinner';
 
 interface TooltipRendererProps<T> extends TooltipProps {
-  active: boolean;
-  type: string;
-  payload: Array<RendererPayload<T>>;
-  label: string;
+  readonly active: boolean;
+  readonly type: string;
+  readonly payload: Array<RendererPayload<T>>;
+  readonly label: string;
 }
 
 interface RendererPayload<T> extends TooltipPayload {
-  payload: T;
+  readonly payload: T;
 }
 
 interface State {
@@ -44,7 +47,8 @@ class LineChartExample extends React.Component<{}, State> {
   };
 
   public async componentDidMount() {
-    await sleep(1500);
+    // Fake delay to simulate slow network connection.
+    await sleep(400);
     const data = await fetchLineGraphData();
     this.setState({ data, loading: false });
   }
@@ -54,13 +58,16 @@ class LineChartExample extends React.Component<{}, State> {
   ) => {
     //tslint:disable
 
+    const [price, sold] = props.payload;
+
     if (props.active && props.payload.length > 0) {
+      console.log(props.payload[1]);
       return (
-        <div className="custom-tooltip">
-          <p className="label">{`${props.label} : ${
-            props.payload[0].value
-          }`}</p>
-        </div>
+        <Card sectioned>
+          <p>{`${sold.value} units sold at ${formatAsUsd(
+            price.value as number
+          )} on ${new Date(props.label).toLocaleDateString()}`}</p>
+        </Card>
       );
     }
 
@@ -78,18 +85,38 @@ class LineChartExample extends React.Component<{}, State> {
           margin={{ top: 40, right: 40, bottom: 20, left: 20 }}
         >
           <CartesianGrid vertical={false} />
-          <XAxis dataKey="date" interval={10} />
+          <XAxis dataKey="date" minTickGap={75} />
           <YAxis
             dataKey="price"
             domain={['auto', 'auto']}
+            yAxisId={0}
             tickFormatter={formatAsUsd}
           />
-          <Tooltip />
+          <YAxis
+            dataKey="sold"
+            domain={['auto', 'auto']}
+            yAxisId={1}
+            orientation="right"
+          >
+            <Label angle={270}>Units sold</Label>
+          </YAxis>
+          <Tooltip content={LineChartExample.tooltipContentRenderer} />
           <Line
+            key="0"
             type="monotone"
             dataKey="price"
             stroke={PRIMARY_SERIES_COLOR}
             strokeWidth="3px"
+            dot={false}
+            yAxisId={0}
+          />
+          <Line
+            key="1"
+            type="monotone"
+            dataKey="sold"
+            stroke={SECONDARY_SERIES_COLOR}
+            strokeWidth="3px"
+            yAxisId={1}
             dot={false}
           />
           <Brush

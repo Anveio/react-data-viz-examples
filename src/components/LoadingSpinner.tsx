@@ -1,4 +1,4 @@
-import { CHART_HEIGHT } from 'api/constants/misc';
+import { CHART_HEIGHT } from 'constants/misc';
 import * as React from 'react';
 import { Spinner } from '../../node_modules/@shopify/polaris';
 
@@ -10,7 +10,7 @@ const LoadingSpinner = () => {
         display: 'flex',
         height: CHART_HEIGHT,
         justifyContent: 'center',
-        width: '100%',
+        width: '100%'
       }}
     >
       <Spinner />

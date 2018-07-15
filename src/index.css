@@ -14,6 +14,10 @@ html {
   text-rendering: optimizeLegibility;
 }
 
+tspan {
+  font-family: inherit;
+}
+
 /**
  * Form elements render using OS defaults,
  * so font-family inheritance must be specifically declared
