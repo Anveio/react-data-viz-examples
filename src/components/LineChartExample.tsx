@@ -1,7 +1,6 @@
 import { PRIMARY_SERIES_COLOR } from 'api/constants/colors';
 import { CHART_HEIGHT } from 'api/constants/misc';
 import { fetchLineGraphData } from 'api/realtime';
-import { LineGraphDataPoint } from 'api/sample-data';
 import * as React from 'react';
 import {
   Area,
@@ -17,6 +16,7 @@ import {
   XAxis,
   YAxis
 } from 'recharts';
+import { LineGraphDataPoint } from 'types';
 import { sleep } from 'utils/async';
 import { formatAsUsd } from 'utils/formatting';
 import LoadingSpinner from './LoadingSpinner';
