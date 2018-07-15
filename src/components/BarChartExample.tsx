@@ -18,7 +18,7 @@ interface State {
   readonly data: BarChartDataPoint[];
 }
 
-type Thing = {
+type KeyToUiTextMap = {
   [K in keyof Pick<BarChartDataPoint, 'soldVolume' | 'totalInventory'>]: string
 };
 
@@ -33,7 +33,16 @@ class BarChartExample extends React.PureComponent<{}, State> {
     this.setState({ data, loading: false });
   }
 
-  public static dataPointToUiTextMap: Thing = {
+  /**
+   * Ensures the first character in a string is capitalized;
+   */
+  private static capitalizeFirstLetter = (name: string) =>
+    name
+      .charAt(0)
+      .toUpperCase()
+      .concat(name.slice(1));
+
+  private static dataPointToUiTextMap: KeyToUiTextMap = {
     soldVolume: 'Units sold',
     totalInventory: 'Units in inventory'
   };
@@ -43,20 +52,28 @@ class BarChartExample extends React.PureComponent<{}, State> {
 
   public render() {
     const { data } = this.state;
-    const { CHART_HEIGHT, legendFormatter } = BarChartExample;
+    const {
+      CHART_HEIGHT,
+      capitalizeFirstLetter,
+      legendFormatter
+    } = BarChartExample;
 
     return (
       <ResponsiveContainer height={CHART_HEIGHT}>
-        <BarChart height={CHART_HEIGHT} data={data} barGap={0}>
-          <XAxis dataKey="name" minTickGap={75} />
+        <BarChart height={CHART_HEIGHT} data={data} maxBarSize={90}>
+          <XAxis
+            dataKey="name"
+            minTickGap={75}
+            tickFormatter={capitalizeFirstLetter}
+          />
           <YAxis />
           <Tooltip />
           <Legend formatter={legendFormatter} />
-          <Bar dataKey="soldVolume" stackId="a" fill={PRIMARY_SERIES_COLOR} />
+          <Bar dataKey="soldVolume" stackId="a" fill={SECONDARY_SERIES_COLOR} />
           <Bar
             dataKey="totalInventory"
             stackId="a"
-            fill={SECONDARY_SERIES_COLOR}
+            fill={PRIMARY_SERIES_COLOR}
           />
         </BarChart>
       </ResponsiveContainer>
