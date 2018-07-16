@@ -79,12 +79,9 @@ class LineChartExample extends React.Component<{}, State> {
   private static tooltipContentRenderer = (
     props: TooltipRendererProps<LineGraphDataPoint>
   ) => {
-    //tslint:disable
-
     const [price, sold] = props.payload;
 
     if (props.active && props.payload.length > 0) {
-      console.log(props.payload[1]);
       return (
         <Card sectioned>
           <p>{`${sold.value} units sold at ${formatAsUsd(
