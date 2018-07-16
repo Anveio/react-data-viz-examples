@@ -1,3 +1,4 @@
+import { Card } from '@shopify/polaris';
 import { fetchBarChartData } from 'api/realtime';
 import { PRIMARY_SERIES_COLOR, SECONDARY_SERIES_COLOR } from 'constants/colors';
 import * as React from 'react';
@@ -59,38 +60,42 @@ class BarChartExample extends React.PureComponent<{}, State> {
       legendFormatter
     } = BarChartExample;
 
-    return this.state.loading ? (
-      <LoadingSpinner />
-    ) : (
-      <ResponsiveContainer height={CHART_HEIGHT}>
-        <BarChart
-          height={CHART_HEIGHT}
-          data={data}
-          maxBarSize={90}
-          margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
-        >
-          <XAxis
-            dataKey="name"
-            minTickGap={75}
-            tickFormatter={capitalizeFirstLetter}
-          />
-          <YAxis />
-          <Tooltip />
-          <Legend formatter={legendFormatter} />
-          <Bar
-            dataKey="soldVolume"
-            name="Units sold"
-            stackId="a"
-            fill={SECONDARY_SERIES_COLOR}
-          />
-          <Bar
-            dataKey="totalInventory"
-            name="Units in inventory"
-            stackId="a"
-            fill={PRIMARY_SERIES_COLOR}
-          />
-        </BarChart>
-      </ResponsiveContainer>
+    return (
+      <Card title="Units sold">
+        <ResponsiveContainer height={CHART_HEIGHT}>
+          {this.state.loading ? (
+            <LoadingSpinner />
+          ) : (
+            <BarChart
+              height={CHART_HEIGHT}
+              data={data}
+              maxBarSize={90}
+              margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
+            >
+              <XAxis
+                dataKey="name"
+                minTickGap={75}
+                tickFormatter={capitalizeFirstLetter}
+              />
+              <YAxis />
+              <Tooltip />
+              <Legend formatter={legendFormatter} />
+              <Bar
+                dataKey="soldVolume"
+                name="Units sold"
+                stackId="a"
+                fill={SECONDARY_SERIES_COLOR}
+              />
+              <Bar
+                dataKey="totalInventory"
+                name="Units in inventory"
+                stackId="a"
+                fill={PRIMARY_SERIES_COLOR}
+              />
+            </BarChart>
+          )}
+        </ResponsiveContainer>
+      </Card>
     );
   }
 }
