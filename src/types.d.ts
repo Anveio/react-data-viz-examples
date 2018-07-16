@@ -9,3 +9,9 @@ export interface BarChartDataPoint {
   readonly soldVolume: number;
   readonly totalInventory: number;
 }
+
+export interface ScatterPlotDataPoint {
+  readonly x: number;
+  readonly y: number;
+  readonly z: number;
+}
