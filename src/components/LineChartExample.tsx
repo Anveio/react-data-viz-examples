@@ -9,6 +9,7 @@ import {
   Brush,
   CartesianGrid,
   Label,
+  Legend,
   Line,
   LineChart,
   ResponsiveContainer,
@@ -98,13 +99,16 @@ class LineChartExample extends React.Component<{}, State> {
             yAxisId={1}
             orientation="right"
           >
-            <Label angle={270}>Units sold</Label>
+            <Label angle={270} position="right" offset={-10}>
+              Units sold
+            </Label>
           </YAxis>
           <Tooltip content={LineChartExample.tooltipContentRenderer} />
           <Line
             key="0"
             type="monotone"
             dataKey="price"
+            name="Price per share (USD)"
             stroke={PRIMARY_SERIES_COLOR}
             strokeWidth="3px"
             dot={false}
@@ -114,6 +118,7 @@ class LineChartExample extends React.Component<{}, State> {
             key="1"
             type="monotone"
             dataKey="sold"
+            name="Units sold"
             stroke={SECONDARY_SERIES_COLOR}
             strokeWidth="3px"
             yAxisId={1}
@@ -126,15 +131,23 @@ class LineChartExample extends React.Component<{}, State> {
           >
             <AreaChart>
               <CartesianGrid />
-              <YAxis hide={true} domain={['auto', 'auto']} />
+              <YAxis hide={true} domain={[100, 'auto']} />
               <Area
                 dataKey="price"
                 stroke={PRIMARY_SERIES_COLOR}
                 fill={PRIMARY_SERIES_COLOR}
                 dot={false}
               />
+              <Area
+                dataKey="sold"
+                stroke={SECONDARY_SERIES_COLOR}
+                fill={SECONDARY_SERIES_COLOR}
+                dot={false}
+                opacity={0.3}
+              />
             </AreaChart>
           </Brush>
+          <Legend />
         </LineChart>
       </ResponsiveContainer>
     );
